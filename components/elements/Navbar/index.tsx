@@ -15,15 +15,18 @@ import { useRouter } from "next/router";
 interface NavLinkProps {
 	route: string;
 	pathname: string;
-	onClose?: () => void
+	onClose?: () => void;
 }
 
 const Links = ["Blogs", "Users"];
 
 const NavLink = ({ route, pathname, onClose }: NavLinkProps) => {
-	const isActive = pathname.slice(1) === route.toLowerCase()
+	const isActive = pathname.slice(1).includes(route.toLowerCase());
 	return (
-		<Link href={`/${route.toLowerCase()}`} onClick={onClose}>
+		<Link
+			href={{ pathname: `/${route.toLowerCase()}`, query: { page: 1 } }}
+			onClick={onClose}
+		>
 			<Box
 				px={2}
 				py={1}
@@ -31,7 +34,7 @@ const NavLink = ({ route, pathname, onClose }: NavLinkProps) => {
 				_hover={{
 					bg: "gray.600",
 					color: "white",
-					fontWeight: "semibold"
+					fontWeight: "semibold",
 				}}
 				bg={isActive ? "gray.600" : ""}
 				color={isActive ? "white" : ""}
@@ -75,7 +78,12 @@ export default function Navbar() {
 				<Box pb={4} display={{ md: "none" }}>
 					<Stack as={"nav"} spacing={2}>
 						{Links.map((link) => (
-							<NavLink key={link} route={link} pathname={pathname} onClose={onClose} />
+							<NavLink
+								key={link}
+								route={link}
+								pathname={pathname}
+								onClose={onClose}
+							/>
 						))}
 					</Stack>
 				</Box>
