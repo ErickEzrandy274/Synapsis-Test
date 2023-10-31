@@ -25,7 +25,6 @@ const TablePost: React.FC<TableDataProps> = ({ data }) => {
 
 	const handlePageChange = (page: number) => {
 		push({ pathname: "blogs", query: { page } });
-		// setPage(page);
 	};
 
 	return (
