@@ -7,7 +7,7 @@ const LandingPage = () => {
 
 	useEffect(() => {
 		const timeOut = setTimeout(() => {
-			router.push("/blogs");
+			router.push({ pathname: "/blogs", query: { page: 1 } });
 		}, 1500);
 
 		return () => clearTimeout(timeOut);
