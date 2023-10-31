@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { ChakraProvider } from "@chakra-ui/react";
 import Layout from "@/components/modules/Layout";
 import { useRouter } from "next/router";
+import { PostDetailsContextProvider } from "@/components/utils/context/PostDetailContext";
 
 export default function App({ Component, pageProps }: AppProps) {
 	const { pathname } = useRouter();
@@ -12,9 +13,11 @@ export default function App({ Component, pageProps }: AppProps) {
 			{pathname === "/" ? (
 				<Component {...pageProps} />
 			) : (
-				<Layout>
-					<Component {...pageProps} />
-				</Layout>
+				<PostDetailsContextProvider>
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
+				</PostDetailsContextProvider>
 			)}
 		</ChakraProvider>
 	);
