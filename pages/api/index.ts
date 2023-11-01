@@ -36,3 +36,14 @@ export const getPostUser = async (userId: number) => {
 		console.log(error);
 	}
 };
+
+export const getUsers = async (page: any) => {
+	if(isNaN(page)) return []
+	try {
+		const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users?page=${page}&per_page=20`);
+
+		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
