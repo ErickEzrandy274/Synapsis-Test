@@ -66,3 +66,13 @@ export const createUser = async (body: any) => {
 		console.log(error);
 	}
 };
+
+export const updateUser = async (body: any, userId: number) => {
+	try {
+		const result = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`, body);
+		
+		return result
+	} catch (error) {
+		console.log(error);
+	}
+};
