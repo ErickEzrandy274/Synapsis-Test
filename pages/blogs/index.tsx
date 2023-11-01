@@ -3,6 +3,7 @@ import { getPost } from "../api";
 import { TablePost } from "@/components/elements/Table";
 import { useRouter } from "next/router";
 import Loader from "@/components/elements/Loader";
+import Head from "next/head";
 
 const blogs = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -14,7 +15,7 @@ const blogs = () => {
 	useEffect(() => {
 		setIsLoading(true);
 		const fetchPost = async () => {
-			if(page){
+			if (page) {
 				const data = await getPost(page);
 				setData(data);
 			}
@@ -24,10 +25,13 @@ const blogs = () => {
 		fetchPost();
 	}, [page]);
 
-	return isLoading ? (
-		<Loader />
-	) : (
-		<TablePost data={data} />
+	return (
+		<>
+			<Head>
+				<title>Blog App | Blogs</title>
+			</Head>
+			{isLoading ? <Loader /> : <TablePost data={data} />}
+		</>
 	);
 };
 

@@ -1,8 +1,9 @@
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
-import { getUsers } from '../api';
-import Loader from '@/components/elements/Loader';
-import { TableUser } from '@/components/elements/Table';
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { getUsers } from "../api";
+import Loader from "@/components/elements/Loader";
+import { TableUser } from "@/components/elements/Table";
+import Head from "next/head";
 
 const users = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -14,7 +15,7 @@ const users = () => {
 	useEffect(() => {
 		setIsLoading(true);
 		const fetchPost = async () => {
-			if(page){
+			if (page) {
 				const data = await getUsers(page);
 				setData(data);
 			}
@@ -24,11 +25,14 @@ const users = () => {
 		fetchPost();
 	}, [page]);
 
-	return isLoading ? (
-		<Loader />
-	) : (
-		<TableUser data={data} />
+	return (
+		<>
+			<Head>
+				<title>Blog App | Users</title>
+			</Head>
+			{isLoading ? <Loader /> : <TableUser data={data} />}
+		</>
 	);
-}
+};
 
-export default users
+export default users;
