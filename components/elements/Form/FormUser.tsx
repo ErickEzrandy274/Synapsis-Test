@@ -16,11 +16,14 @@ import { useRouter } from "next/router";
 import { FormUserProps, NewUserType, UserType } from "./interface";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { isEqual } from "lodash";
+import { useEntityDetails } from "@/components/utils/context";
 
 const FormUser: React.FC<FormUserProps> = ({ type, oldData }) => {
 	const [data, setData] = useState<NewUserType | UserType>(oldData ? oldData : INIT_USER_DATA);
 	const toast = useToast();
+	const { setSelectedUser } = useEntityDetails();
 	const { push, back } = useRouter();
+	type === "create" && setSelectedUser(null)
 
 	const handleChange = (e: any) => {
 		const { name, value } = e.target;
@@ -65,6 +68,7 @@ const FormUser: React.FC<FormUserProps> = ({ type, oldData }) => {
       if (result?.status === 200) {
 				push({ pathname: "/users", query: { page: 1 } });
 				setData(INIT_USER_DATA);
+				setSelectedUser(null)
 				return toast({
 					title: "Successfully updated a user!",
 					status: "success",
@@ -75,11 +79,16 @@ const FormUser: React.FC<FormUserProps> = ({ type, oldData }) => {
     }
 	};
 
+	const handleBack = () => {
+		setSelectedUser(null)
+		back()
+	}
+
 	return (
 		<Flex flexDir="column" gap={3}>
 			<Flex cursor="pointer" alignItems="center" w="fit-content">
 				<ArrowBackIcon />
-				<Text fontSize="md" fontWeight="semibold" onClick={() => back()}>
+				<Text fontSize="md" fontWeight="semibold" onClick={handleBack}>
 					Back
 				</Text>
 			</Flex>
