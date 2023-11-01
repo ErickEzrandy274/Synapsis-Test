@@ -1,1 +1,1 @@
-export * from "./PostDetailContext";
+export * from "./EntityDetailContext";
