@@ -11,6 +11,7 @@ import {
 	Button,
 	Flex,
 	Box,
+	Heading,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEntityDetails } from "@/components/utils/context";
@@ -31,6 +32,8 @@ const TablePost: React.FC<TableDataProps> = ({ data }) => {
 
 	return (
 		<Flex flexDir="column" gap={3}>
+			<Heading textAlign="center" color="whatsapp.700">List of Posts</Heading>
+			
 			<TableContainer>
 				<Table variant="striped" colorScheme="messenger">
 					<Thead>

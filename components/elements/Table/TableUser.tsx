@@ -15,6 +15,7 @@ import {
 	InputLeftElement,
 	Input,
 	useToast,
+	Heading,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { USER_COLUMNS } from "./columns";
@@ -67,7 +68,9 @@ const TableUser: React.FC<TableDataProps> = ({ data }) => {
 
 	return (
 		<Flex flexDir="column" gap={3}>
-			<Flex gap={3} flexDir={{ base: "column", md: "row" }}>
+			<Heading textAlign="center" color="whatsapp.700">List of Users</Heading>
+
+			<Flex gap={3} flexDir={{ base: "column", md: "row" }} justifyContent="center" >
 				<Box w={{ base: "full", md: "25%" }}>
 					<InputGroup>
 						<InputLeftElement pointerEvents="none">
