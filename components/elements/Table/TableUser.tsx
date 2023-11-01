@@ -24,47 +24,58 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { deleteUser } from "@/pages/api";
 
 const TableUser: React.FC<TableDataProps> = ({ data }) => {
-	const [cloneData, setCloneData] = useState(data.slice())
-	const toast = useToast()
-	const [searchVal, setSearchVal] = useState('')
-	const [deletedUserId, setDeletedUserId] = useState<number | null>(null)
+	const [cloneData, setCloneData] = useState(data.slice());
+	const toast = useToast();
+	const [searchVal, setSearchVal] = useState("");
+	const [deletedUserId, setDeletedUserId] = useState<number | null>(null);
 	const { push, query } = useRouter();
 	const handleDelete = async (id: number) => {
-		setDeletedUserId(id)
-		const result = await deleteUser(id)
-		if(result?.status === 204){
+		setDeletedUserId(id);
+		const result = await deleteUser(id);
+		if (result?.status === 204) {
 			toast({
-				title: 'Successfully deleted user!',
-				status: 'success',
+				title: "Successfully deleted user!",
+				status: "success",
 				duration: 1500,
-				position: "top"
-			})
+				position: "top",
+			});
 		}
 	};
 	const header = useMemo(() => USER_COLUMNS, []);
 
 	const handlePageChange = (page: number) => {
-		push({ pathname: "users", query: { page } });
+		push({ pathname: "/users", query: { page } });
 	};
 
-	const handleSearch = (e:any) => {
-		setSearchVal(e.target.value)
-	}
-	
+	const handleSearch = (e: any) => {
+		setSearchVal(e.target.value);
+	};
+
 	useEffect(() => {
-		setCloneData(data.slice().filter((item) => item.name.toLowerCase().includes(searchVal)))
-	}, [searchVal])
+		setCloneData(
+			data.slice().filter((item) => item.name.toLowerCase().includes(searchVal))
+		);
+	}, [searchVal]);
 
 	return (
 		<Flex flexDir="column" gap={3}>
-			<Box w="25%" mx="auto">
+			<Flex gap={3} flexDir={{ base: "column", md: "row" }}>
+				<Box w={{ base: "full", md: "25%" }}>
 					<InputGroup>
 						<InputLeftElement pointerEvents="none">
 							<SearchIcon color="gray.500" />
 						</InputLeftElement>
-						<Input type="text" onChange={handleSearch} placeholder="Search user name" value={searchVal} />
+						<Input
+							type="text"
+							onChange={handleSearch}
+							placeholder="Search user name"
+							value={searchVal}
+						/>
 					</InputGroup>
-			</Box>
+				</Box>
+
+				<Button colorScheme="linkedin" onClick={() => push("/users/create")}>Create New User</Button>
+			</Flex>
 
 			<TableContainer>
 				<Table variant="striped" colorScheme="messenger">
@@ -79,7 +90,10 @@ const TableUser: React.FC<TableDataProps> = ({ data }) => {
 					</Thead>
 					<Tbody>
 						{cloneData.map((dataItem) => (
-							<Tr key={dataItem.id} display={dataItem.id === deletedUserId ? "none" : ""}>
+							<Tr
+								key={dataItem.id}
+								display={dataItem.id === deletedUserId ? "none" : ""}
+							>
 								{header.map((headerItem) => {
 									if (headerItem !== "action") {
 										const props = {
@@ -115,7 +129,7 @@ const TableUser: React.FC<TableDataProps> = ({ data }) => {
 				</Table>
 			</TableContainer>
 
-			<Flex gap={2} justifyContent="center">
+			<Flex gap={2} justifyContent="center" flexWrap="wrap">
 				{Array(20)
 					.fill(null)
 					.map((_, i) => {
