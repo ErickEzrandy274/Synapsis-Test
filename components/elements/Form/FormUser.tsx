@@ -18,7 +18,7 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 import { isEqual } from "lodash";
 
 const FormUser: React.FC<FormUserProps> = ({ type, oldData }) => {
-	const [data, setData] = useState<NewUserType | UserType>(type === "update" ? oldData! : INIT_USER_DATA);
+	const [data, setData] = useState<NewUserType | UserType>(oldData ? oldData : INIT_USER_DATA);
 	const toast = useToast();
 	const { push, back } = useRouter();
 
