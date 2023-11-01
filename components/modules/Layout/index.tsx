@@ -7,7 +7,7 @@ const Layout: React.FC<ReactNodeProps> = ({ children }) => {
 	return (
 		<Box>
 			<Navbar />
-			<Box p={5} minH="100vh">{children}</Box>
+			<Box p={5}>{children}</Box>
 		</Box>
 	);
 };
