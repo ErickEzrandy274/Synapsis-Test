@@ -13,12 +13,12 @@ import {
 	Box,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { usePostDetails } from "@/components/utils/context";
+import { useEntityDetails } from "@/components/utils/context";
 import { POST_COLUMNS } from "./columns";
 
 const TablePost: React.FC<TableDataProps> = ({ data }) => {
 	const { push, query } = useRouter();
-	const { setPostDetails } = usePostDetails();
+	const { setPostDetails } = useEntityDetails();
 	const handleClick = (item: any) => {
 		push(`/blogs/detail/${item.id}`);
 		setPostDetails(item);
