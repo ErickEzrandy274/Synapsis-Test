@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { TableDataProps } from "./interface";
 import {
 	Table,
@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { usePostDetails } from "@/components/utils/context";
+import { POST_COLUMNS } from "./columns";
 
 const TablePost: React.FC<TableDataProps> = ({ data }) => {
 	const { push, query } = useRouter();
@@ -22,6 +23,7 @@ const TablePost: React.FC<TableDataProps> = ({ data }) => {
 		push(`/blogs/detail/${item.id}`);
 		setPostDetails(item);
 	};
+	const header = useMemo(() => POST_COLUMNS, []);
 
 	const handlePageChange = (page: number) => {
 		push({ pathname: "blogs", query: { page } });
@@ -33,18 +35,11 @@ const TablePost: React.FC<TableDataProps> = ({ data }) => {
 				<Table variant="striped" colorScheme="messenger">
 					<Thead>
 						<Tr>
-							<Th textAlign="center" fontSize="lg">
-								Post ID
-							</Th>
-							<Th textAlign="center" fontSize="lg">
-								User ID
-							</Th>
-							<Th textAlign="center" fontSize="lg">
-								Title
-							</Th>
-							<Th textAlign="center" fontSize="lg">
-								Action
-							</Th>
+							{header.map((item) => (
+								<Th key={item} textAlign="center" fontSize="lg">
+									{item}
+								</Th>
+							))}
 						</Tr>
 					</Thead>
 					<Tbody>

@@ -55,7 +55,7 @@ const BlogDetails: React.FC<BlogDetailProps> = ({
 											Gender: {userData.gender}
 										</Text>
 										<Text as="h5" size="sm">
-											Status: <Badge status={userData.status} />
+											Status: <Badge type="status" status={userData.status} />
 										</Text>
 									</Box>
 								</>
