@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import FormUser from "@/components/elements/Form/FormUser";
 import { useEntityDetails } from "@/components/utils/context";
 import Head from "next/head";

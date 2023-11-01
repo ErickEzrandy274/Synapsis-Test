@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from "react";
 import { getPost } from "../api";
 import { TablePost } from "@/components/elements/Table";

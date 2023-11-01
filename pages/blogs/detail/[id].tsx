@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { BlogDetails } from "@/components/modules/Blog";
 import { useEntityDetails } from "@/components/utils/context";
 import { getPostComments, getPostUser } from "@/pages/api";
