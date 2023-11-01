@@ -1,4 +1,5 @@
 import axios from "axios";
+axios.defaults.headers.common['Authorization'] = `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`;
 
 export const getPost = async (page: any) => {
 	if(isNaN(page)) return []
@@ -43,6 +44,14 @@ export const getUsers = async (page: any) => {
 		const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/users?page=${page}&per_page=20`);
 
 		return data;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const deleteUser = async (userId: any) => {
+	try {
+		return await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/users/${userId}`);
 	} catch (error) {
 		console.log(error);
 	}
