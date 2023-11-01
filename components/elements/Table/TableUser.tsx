@@ -14,7 +14,6 @@ import {
 	InputGroup,
 	InputLeftElement,
 	Input,
-	FormControl,
 	useToast,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -22,6 +21,8 @@ import { USER_COLUMNS } from "./columns";
 import Badge from "../Badge";
 import { SearchIcon } from "@chakra-ui/icons";
 import { deleteUser } from "@/pages/api";
+import { UserType } from "../Form/interface";
+import { useEntityDetails } from "@/components/utils/context";
 
 const TableUser: React.FC<TableDataProps> = ({ data }) => {
 	const [cloneData, setCloneData] = useState(data.slice());
@@ -29,6 +30,9 @@ const TableUser: React.FC<TableDataProps> = ({ data }) => {
 	const [searchVal, setSearchVal] = useState("");
 	const [deletedUserId, setDeletedUserId] = useState<number | null>(null);
 	const { push, query } = useRouter();
+	const header = useMemo(() => USER_COLUMNS, []);
+	const { setSelectedUser } = useEntityDetails();
+
 	const handleDelete = async (id: number) => {
 		setDeletedUserId(id);
 		const result = await deleteUser(id);
@@ -41,7 +45,11 @@ const TableUser: React.FC<TableDataProps> = ({ data }) => {
 			});
 		}
 	};
-	const header = useMemo(() => USER_COLUMNS, []);
+
+	const handleUpdate = (dataItem: UserType) => {
+		setSelectedUser(dataItem)
+		push("/users/update")
+	}
 
 	const handlePageChange = (page: number) => {
 		push({ pathname: "/users", query: { page } });
@@ -74,7 +82,9 @@ const TableUser: React.FC<TableDataProps> = ({ data }) => {
 					</InputGroup>
 				</Box>
 
-				<Button colorScheme="linkedin" onClick={() => push("/users/create")}>Create New User</Button>
+				<Button colorScheme="linkedin" onClick={() => push("/users/create")}>
+					Create New User
+				</Button>
 			</Flex>
 
 			<TableContainer>
@@ -114,14 +124,25 @@ const TableUser: React.FC<TableDataProps> = ({ data }) => {
 									}
 								})}
 								<Td p={1} textAlign="center">
-									<Button
-										my={1}
-										size="sm"
-										colorScheme="red"
-										onClick={() => handleDelete(dataItem.id)}
-									>
-										Delete
-									</Button>
+									<Flex justifyContent="center" gap={3}>
+										<Button
+											my={1}
+											size="sm"
+											colorScheme="red"
+											onClick={() => handleDelete(dataItem.id)}
+										>
+											Delete
+										</Button>
+
+										<Button
+											my={1}
+											size="sm"
+											colorScheme="orange"
+											onClick={() => handleUpdate(dataItem)}
+										>
+											Update
+										</Button>
+									</Flex>
 								</Td>
 							</Tr>
 						))}
