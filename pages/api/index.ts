@@ -56,3 +56,13 @@ export const deleteUser = async (userId: any) => {
 		console.log(error);
 	}
 };
+
+export const createUser = async (body: any) => {
+	try {
+		const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/users`, body);
+		
+		return result
+	} catch (error) {
+		console.log(error);
+	}
+};
