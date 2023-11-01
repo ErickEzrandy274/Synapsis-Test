@@ -8,13 +8,14 @@ import React from "react";
 const modifyUser = () => {
 	const { query } = useRouter();
 	const { selectedUser } = useEntityDetails();
+	const type = query.slug === "create" ? "create" : "update"
 
 	return (
 		<>
 			<Head>
 				<title>Blog App | Users</title>
 			</Head>
-			<FormUser type={query.slug} oldData={selectedUser} />
+			<FormUser type={type} oldData={selectedUser} />
 		</>
 	);
 };
