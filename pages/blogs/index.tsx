@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getPost } from "../api";
-import { Text } from "@chakra-ui/react";
 import { TablePost } from "@/components/elements/Table";
 import { useRouter } from "next/router";
+import Loader from "@/components/elements/Loader";
 
 const blogs = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,7 +25,7 @@ const blogs = () => {
 	}, [page]);
 
 	return isLoading ? (
-		<Text size="xl">Loading...</Text>
+		<Loader />
 	) : (
 		<TablePost data={data} />
 	);

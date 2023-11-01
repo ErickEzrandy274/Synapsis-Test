@@ -1,8 +1,10 @@
-import { Badge, Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import React from "react";
 import { BlogDetailProps } from "./interface";
 import { useRouter } from "next/router";
 import { ArrowBackIcon } from "@chakra-ui/icons";
+import Badge from "@/components/elements/Badge";
+import Loader from "@/components/elements/Loader";
 
 const BlogDetails: React.FC<BlogDetailProps> = ({
 	isLoading,
@@ -38,9 +40,11 @@ const BlogDetails: React.FC<BlogDetailProps> = ({
 							<Heading as="h5" size="md">
 								Made By
 							</Heading>
-							{userData?.name ? (
+							{isLoading ? (
+								<Loader />
+							) : userData?.name ? (
 								<>
-									<Box rounded="md" bg="gray.200" w="fit-content" p={2}>
+									<Box rounded="md" bg="gray.300" w="fit-content" p={2}>
 										<Text as="h5" size="sm">
 											Name: {userData.name}
 										</Text>
@@ -51,8 +55,7 @@ const BlogDetails: React.FC<BlogDetailProps> = ({
 											Gender: {userData.gender}
 										</Text>
 										<Text as="h5" size="sm">
-											Status:{" "}
-											<Badge colorScheme="messenger">{userData.status}</Badge>
+											Status: <Badge status={userData.status} />
 										</Text>
 									</Box>
 								</>
@@ -70,7 +73,7 @@ const BlogDetails: React.FC<BlogDetailProps> = ({
 						Comments
 					</Heading>
 					{isLoading ? (
-						<Text size="xl">Loading...</Text>
+						<Loader />
 					) : commentsData?.length ? (
 						commentsData.map((item, index) => (
 							<Flex flexDir="column" key={item.id}>
