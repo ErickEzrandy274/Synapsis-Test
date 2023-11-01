@@ -1,11 +1,12 @@
 import { BlogDetails } from "@/components/modules/Blog";
-import { usePostDetails } from "@/components/utils/context";
+import { useEntityDetails } from "@/components/utils/context";
 import { getPostComments, getPostUser } from "@/pages/api";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 const detailBlog = () => {
-	const { postDetails } = usePostDetails();
+	const { postDetails } = useEntityDetails();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [commentsData, setCommentsData] = useState([] as any[]);
 	const [userData, setUserData] = useState({});
@@ -33,7 +34,14 @@ const detailBlog = () => {
 		postDetails,
 	};
 
-	return <BlogDetails {...props} />;
+	return (
+		<>
+			<Head>
+				<title>Blog App | Blog Details</title>
+			</Head>
+			<BlogDetails {...props} />
+		</>
+	);
 };
 
 export default detailBlog;
