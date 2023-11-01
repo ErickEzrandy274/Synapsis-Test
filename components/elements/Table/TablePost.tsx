@@ -26,7 +26,7 @@ const TablePost: React.FC<TableDataProps> = ({ data }) => {
 	const header = useMemo(() => POST_COLUMNS, []);
 
 	const handlePageChange = (page: number) => {
-		push({ pathname: "blogs", query: { page } });
+		push({ pathname: "/blogs", query: { page } });
 	};
 
 	return (
@@ -70,7 +70,7 @@ const TablePost: React.FC<TableDataProps> = ({ data }) => {
 				</Table>
 			</TableContainer>
 
-			<Flex gap={2} justifyContent="center">
+			<Flex gap={2} justifyContent="center" flexWrap="wrap">
 				{Array(20)
 					.fill(null)
 					.map((_, i) => {
